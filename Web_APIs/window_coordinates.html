@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinates</title>
+    <style>
+        body{
+            background-color: black;
+            /* overflow: hidden; -> 페이지 벗어나면 스크롤 안되게 하기 */
+        }
+        .box{
+            background-color: rgb(212, 184, 148);
+            width:150px;
+            height:150px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+        .special{
+            background-color: rgb(216, 102, 74);
+            width:150px;
+            height:150px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+        aside{
+            position: fixed; /*위치 고정*/
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="special"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <aside>
+        <button class="scroll-by">Scroll by 100px(y)</button>
+        <button class="scroll-to">Scroll to 100px(y)</button>
+        <button class="scroll-into">Scroll into special</button>
+    </aside>
+    <script>
+        const special = document.querySelector('.special')
+        special.addEventListener('click', (event) => {
+            const rect = special.getBoundingClientRect(); // eturns a DOMRect object providing information about the size of an element and its position relative to the viewport.
+            console.log(rect);
+            console.log(`client: ${event.clientX}, ${event.clientY}`); // 브라우저 맨위의 상위좌표에서 시작
+            console.log(`page: ${event.pageX}, ${event.pageY}`); // page 맨위의 상위좌표에서 시작
+        });
+
+        const scrollBy = document.querySelector('.scroll-by');
+        const scrollTo = document.querySelector('.scroll-to');
+        const scrollInto = document.querySelector('.scroll-into');
+
+        scrollBy.addEventListener('click', () => { window.scrollBy(0, 100) });
+        // scrollBy.addEventListener('click', () => { window.scrollBy({top: 100, left: 0, behavior: smooth}) }); object 를 전달해서 이렇게도 이용가능 
+        scrollTo.addEventListener('click', () => { window.scrollTo(0, 100) });
+        scrollInto.addEventListener('click', () => { special.scrollIntoView() });
+    </script>
+</body>
+</html>
