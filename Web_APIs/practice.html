@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 150px;
+            height: 150px;
+            background-color: coral;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+        .special{
+            width: 150px;
+            height: 150px;
+            background-color: rgb(83, 122, 196);
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div class="special"></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <script>
+        const special = document.querySelector('.special');
+        special.addEventListener('click', event =>{
+            const rect = special.getBoundingClientRect(); // returns a DOMRect object providing information about the size of an element and its position relative to the viewport.
+            console.log(rect);
+            console.log(`client: ${event.clientX}, ${event.clientY}`); // 브라우저 맨위의 상위좌표에서 시작
+            console.log(`page: ${event.pageX}, ${event.pageY}`); // page 맨위의 상위좌표에서 시작
+        })
+    </script>
+</body>
+</html>
