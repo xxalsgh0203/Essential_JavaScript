@@ -1,0 +1,21 @@
+body {
+    background-color: black;
+    text-align:center; /* 수평에서 중간으로 정렬할때 사용 */
+}
+
+img {
+    display: block; /*  한줄에 하나만 나올 수 있도록. img 와 button 은 inline-block 으로 설정되어있음 */
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+button {
+    outline: none;
+    background-color: tomato;
+    color: white;
+    margin: 16px 0;
+    width: 190px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer; /* 커서를 포인터로 바꿈. 마우스 올라가면 손가락 모양으로 바뀜 */
+}
