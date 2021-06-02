@@ -1,4 +1,4 @@
-const vertical = document.querySelector('.vertical');
+const vertical = document.querySelector('.vertical'); // 한번 할당한 다음에 다시 변환할 필요없기 때문에 const
 const horizontal = document.querySelector('.horizontal');
 const target = document.querySelector('.target');
 const tag = document.querySelector('.tag');

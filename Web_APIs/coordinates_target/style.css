@@ -23,7 +23,7 @@ body{
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); /* 요소의 절반만큼 왼쪽,위로 이동 */
 }
 
 .tag{
