@@ -26,5 +26,5 @@ body{
     color: white;
     position: absolute;
     font-size: 38px;
-    transform: translate(20px, 20px);
+    margin: 20px;
 }
