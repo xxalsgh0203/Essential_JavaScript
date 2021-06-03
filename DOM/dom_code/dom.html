@@ -47,6 +47,16 @@
       section.appendChild(h2);
       const h3 = document.querySelector('h3');
       section.insertBefore(h2, h3); // 둘 차이점 비교해보기
+
+      section.innerHTML = ` 
+        <img src="img/avatar.png" alt="avatar" />
+        <h1 id="brand">Dream Coding</h1>
+      `; // 부분적인 수정할땐 사용하지 말자
+      //Element 의 referecne, 즉 Element 의 변수를 가지고 있으면서  조금 더 많은 동작을 해야한다면 createElement 로 만들어서 쓰는게 좋으며
+      //한번 업데이트 한다음에 다시 변경할 일 없으면 innerHTML 이용해서 동적으로 추가해도 괜찮다.
+
+      section.removeChile(h2);
+
     </script>
   </body>
 </html>
