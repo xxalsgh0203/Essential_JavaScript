@@ -1,10 +1,17 @@
 const restart = document.querySelector('.pop_up_refresh');
 const field = document.querySelector('.game_field');
 const fieldRect = field.getBoundingClientRect();
-
-restart.addEventListener('click', () => initGame());
+const gamestartBtn = document.querySelector('.game_start');
+const gamescore = document.querySelector('.game_score');
+const popup = document.querySelector('.pop_up');
+const popupMessage = document.querySelector('.pop_up_message');
+let score = 0;
+let started = false;
 
 function initGame(){
+    score = 0;
+    popup.style.visibility = 'hidden';
+    field.innerHTML = ``;
     addItem('bug', "./img/bug.png", 5);
     addItem('carrot', "./img/carrot.png", 5);
 }
@@ -25,3 +32,35 @@ function addItem(className, imgsrc, count){
     }
 }
 
+gamestartBtn.addEventListener('click', ()=>{
+    if(started){
+
+    }
+    else{
+        field.innerHTML = ``;
+        initGame();
+    }
+});
+
+
+field.addEventListener('click', event=>{
+    const cnt = event.target;
+    if(cnt.className == 'carrot'){
+        cnt.remove();
+        score++;
+        if(score == 5){
+            popup.style.visibility = 'visible';
+            popupMessage.innerHTML = `SUCCESS`;
+        }
+        gamescore.innerHTML = `${score}`;
+    }
+    else if(cnt.className == 'bug'){
+        popup.style.visibility = 'visible';
+        popupMessage.innerHTML = `FAIL`;
+    }
+});
+
+
+restart.addEventListener('click', ()=>{
+    initGame();
+});

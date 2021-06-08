@@ -89,6 +89,7 @@ button {
     text-align: center;
     padding: 20px;
     transform: translateY(-150%);
+    visibility: hidden;
 }
 
 .pop_up_refresh{
