@@ -1,5 +1,6 @@
 body{
     text-align: center;
+    background-color: rgb(224, 231, 128);
 }
 
 button {
@@ -48,6 +49,8 @@ button {
     border-radius: 20px;
     font-size: 32px;
     margin-top: 8px;
+    user-select: none;
+    cursor: auto;
 }
 
 .game_score{
@@ -60,6 +63,8 @@ button {
     color: white;
     margin-top: 8px;
     background-color: darksalmon;
+    user-select: none;
+    cursor: auto;
 }
 
 .game_field{
@@ -104,4 +109,13 @@ button {
 .pop_up_message{
     display: block;
     font-size: 38px;
+}
+
+.carrot, .bug{
+    transition: transform 100ms ease-in;
+}
+
+.carrot:hover,
+.bug:hover{
+    transform: scale(1.1);
 }

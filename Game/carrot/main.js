@@ -8,7 +8,7 @@ const gamescore = document.querySelector('.game_score');
 const popup = document.querySelector('.pop_up');
 const popupMessage = document.querySelector('.pop_up_message');
 const gametimer = document.querySelector('.game_timer');
-const GAME_DURATION_SEC = 5;
+const GAME_DURATION_SEC = 10;
 
 const carrotSound = new Audio('./sound/carrot_pull.mp3');
 const alertSound = new Audio('./sound/alert.wav');
@@ -21,6 +21,8 @@ let started = false;
 let timer = undefined;
 let result = undefined;
 let replay = undefined;
+let bug_num=10;
+let carrot_num=10;
 
 function initGame(){
     gametimer.innerText = '0:0';
@@ -62,8 +64,8 @@ function startGame(){
     playSound(bgSound);
     field.innerHTML = ``;
     initGame();
-    addItem('bug', "./img/bug.png", 5);
-    addItem('carrot', "./img/carrot.png", 5);
+    addItem('bug', "./img/bug.png", bug_num);
+    addItem('carrot', "./img/carrot.png", carrot_num);
     startGameTimer();
 }
 
@@ -122,7 +124,7 @@ field.addEventListener('click', event=>{
         playSound(carrotSound);
         cnt.remove();
         score++;
-        if(score == 5){
+        if(score == carrot_num){
             gameSuccess();
         }
         gamescore.innerHTML = `${score}`;
@@ -142,14 +144,14 @@ restart.addEventListener('click', ()=>{
 function gameSuccess(){
     result = true;
     popup.style.visibility = 'visible';
-    popupMessage.innerHTML = `SUCCESS`;
+    popupMessage.innerHTML = `YOU WIN 👏🏻`;
     playSound(winSound);
 }
 
 function gameFail(){
     result = false;
     popup.style.visibility = 'visible';
-    popupMessage.innerHTML = `FAIL`;
+    popupMessage.innerHTML = `YOU LOSE 😎`;
     playSound(alertSound);
 }
 
