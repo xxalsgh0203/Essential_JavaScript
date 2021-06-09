@@ -124,6 +124,8 @@ field.addEventListener('click', event=>{
 
 restart.addEventListener('click', ()=>{
     initGame();
+    showPlayBtn();
+    started = false;
 });
 
 function gameSuccess(){
