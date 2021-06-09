@@ -11,6 +11,7 @@ let score = 0;
 let started = false;
 let timer = undefined;
 let result = undefined;
+let replay = undefined;
 
 function initGame(){
     gametimer.innerText = '0:0';
@@ -38,23 +39,34 @@ function addItem(className, imgsrc, count){
 
 gamestartBtn.addEventListener('click', ()=>{
     if(started){
-        changetoStopBtn();
+        gameReplay();
+        showPlayBtn();
     }
     else{
-        field.innerHTML = ``;
-        initGame();
-        addItem('bug', "./img/bug.png", 5);
-        addItem('carrot', "./img/carrot.png", 5);
-        startGameTimer();
+        startGame();
+        showStopBtn();
     }
+    started = !started;
 });
 
 function startGame(){
-
+    field.innerHTML = ``;
+    initGame();
+    addItem('bug', "./img/bug.png", 5);
+    addItem('carrot', "./img/carrot.png", 5);
+    startGameTimer();
 }
 
-function stopGame(){
+function showStopBtn(){
+    const icon = gamestartBtn.querySelector('.fa-play');
+    icon.classList.add('fa-stop');
+    icon.classList.remove('fa-play');
+}
 
+function showPlayBtn(){
+    const icon = gamestartBtn.querySelector('.fa-stop');
+    icon.classList.add('fa-play');
+    icon.classList.remove('fa-stop');
 }
 
 function startGameTimer(){
@@ -77,6 +89,11 @@ function startGameTimer(){
             clearInterval(timer);
             gameFail();
             result = undefined;
+            return;
+        }
+        if(replay === true){
+            clearInterval(timer);
+            replay = undefined;
             return;
         }
         updateTimerText(--remainingTimeSec);
@@ -122,7 +139,7 @@ function gameFail(){
 }
 
 function gameReplay(){
-    result = false;
+    replay = true;
     popup.style.visibility = 'visible';
     popupMessage.innerHTML = `REPLAY?`;
 }
