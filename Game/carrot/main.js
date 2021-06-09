@@ -6,17 +6,18 @@ const gamescore = document.querySelector('.game_score');
 const popup = document.querySelector('.pop_up');
 const popupMessage = document.querySelector('.pop_up_message');
 const gametimer = document.querySelector('.game_timer');
+const GAME_DURATION_SEC = 5;
 let score = 0;
 let started = false;
-const GAME_DURATION_SEC = 5;
 let timer = undefined;
+let result = undefined;
 
 function initGame(){
+    gametimer.innerText = '0:0';
     score = 0;
+    gamescore.innerText = `${score}`;
     popup.style.visibility = 'hidden';
     field.innerHTML = ``;
-    addItem('bug', "./img/bug.png", 5);
-    addItem('carrot', "./img/carrot.png", 5);
 }
 
 function getRandomNum(min, max){
@@ -42,6 +43,8 @@ gamestartBtn.addEventListener('click', ()=>{
     else{
         field.innerHTML = ``;
         initGame();
+        addItem('bug', "./img/bug.png", 5);
+        addItem('carrot', "./img/carrot.png", 5);
         startGameTimer();
     }
 });
@@ -60,14 +63,20 @@ function startGameTimer(){
     timer = setInterval(()=>{
         if(remainingTimeSec <= 0){
             clearInterval(timer);
-            popup.style.visibility = 'visible';
-            popupMessage.innerHTML = `FAIL`;
+            gameFail();
+            result = undefined;
             return;
         }
         if(score == 5){
             clearInterval(timer);
-            popup.style.visibility = 'visible';
-            popupMessage.innerHTML = `SUCCESS`;
+            gameSuccess();
+            result = undefined;
+            return;
+        }
+        if(result === false){
+            clearInterval(timer);
+            gameFail();
+            result = undefined;
             return;
         }
         updateTimerText(--remainingTimeSec);
@@ -86,14 +95,12 @@ field.addEventListener('click', event=>{
         cnt.remove();
         score++;
         if(score == 5){
-            popup.style.visibility = 'visible';
-            popupMessage.innerHTML = `SUCCESS`;
+            gameSuccess();
         }
         gamescore.innerHTML = `${score}`;
     }
     else if(cnt.className == 'bug'){
-        popup.style.visibility = 'visible';
-        popupMessage.innerHTML = `FAIL`;
+        gameFail();
     }
 });
 
@@ -101,3 +108,15 @@ field.addEventListener('click', event=>{
 restart.addEventListener('click', ()=>{
     initGame();
 });
+
+function gameSuccess(){
+    result = true;
+    popup.style.visibility = 'visible';
+    popupMessage.innerHTML = `SUCCESS`;
+}
+
+function gameFail(){
+    result = false;
+    popup.style.visibility = 'visible';
+    popupMessage.innerHTML = `FAIL`;
+}
