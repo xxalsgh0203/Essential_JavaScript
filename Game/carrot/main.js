@@ -1,3 +1,5 @@
+'use strict'
+
 const restart = document.querySelector('.pop_up_refresh');
 const field = document.querySelector('.game_field');
 const fieldRect = field.getBoundingClientRect();
@@ -7,6 +9,13 @@ const popup = document.querySelector('.pop_up');
 const popupMessage = document.querySelector('.pop_up_message');
 const gametimer = document.querySelector('.game_timer');
 const GAME_DURATION_SEC = 5;
+
+const carrotSound = new Audio('./sound/carrot_pull.mp3');
+const alertSound = new Audio('./sound/alert.wav');
+const bgSound = new Audio('./sound/bg.mp3');
+const bugSound = new Audio('./sound/bug_pull.mp3');
+const winSound = new Audio('./sound/game_win.mp3');
+
 let score = 0;
 let started = false;
 let timer = undefined;
@@ -50,6 +59,7 @@ gamestartBtn.addEventListener('click', ()=>{
 });
 
 function startGame(){
+    playSound(bgSound);
     field.innerHTML = ``;
     initGame();
     addItem('bug', "./img/bug.png", 5);
@@ -109,6 +119,7 @@ function updateTimerText(time){
 field.addEventListener('click', event=>{
     const cnt = event.target;
     if(cnt.className == 'carrot'){
+        playSound(carrotSound);
         cnt.remove();
         score++;
         if(score == 5){
@@ -117,10 +128,10 @@ field.addEventListener('click', event=>{
         gamescore.innerHTML = `${score}`;
     }
     else if(cnt.className == 'bug'){
+        playSound(bugSound);
         gameFail();
     }
 });
-
 
 restart.addEventListener('click', ()=>{
     initGame();
@@ -132,16 +143,23 @@ function gameSuccess(){
     result = true;
     popup.style.visibility = 'visible';
     popupMessage.innerHTML = `SUCCESS`;
+    playSound(winSound);
 }
 
 function gameFail(){
     result = false;
     popup.style.visibility = 'visible';
     popupMessage.innerHTML = `FAIL`;
+    playSound(alertSound);
 }
 
 function gameReplay(){
+    playSound(alertSound);
     replay = true;
     popup.style.visibility = 'visible';
     popupMessage.innerHTML = `REPLAY?`;
+}
+
+function playSound(sound){
+    sound.play();
 }
