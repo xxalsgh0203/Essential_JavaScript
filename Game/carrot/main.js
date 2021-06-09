@@ -5,8 +5,11 @@ const gamestartBtn = document.querySelector('.game_start');
 const gamescore = document.querySelector('.game_score');
 const popup = document.querySelector('.pop_up');
 const popupMessage = document.querySelector('.pop_up_message');
+const gametimer = document.querySelector('.game_timer');
 let score = 0;
 let started = false;
+const GAME_DURATION_SEC = 5;
+let timer = undefined;
 
 function initGame(){
     score = 0;
@@ -34,14 +37,48 @@ function addItem(className, imgsrc, count){
 
 gamestartBtn.addEventListener('click', ()=>{
     if(started){
-
+        changetoStopBtn();
     }
     else{
         field.innerHTML = ``;
         initGame();
+        startGameTimer();
     }
 });
 
+function startGame(){
+
+}
+
+function stopGame(){
+
+}
+
+function startGameTimer(){
+    let remainingTimeSec = GAME_DURATION_SEC;
+    updateTimerText(remainingTimeSec);
+    timer = setInterval(()=>{
+        if(remainingTimeSec <= 0){
+            clearInterval(timer);
+            popup.style.visibility = 'visible';
+            popupMessage.innerHTML = `FAIL`;
+            return;
+        }
+        if(score == 5){
+            clearInterval(timer);
+            popup.style.visibility = 'visible';
+            popupMessage.innerHTML = `SUCCESS`;
+            return;
+        }
+        updateTimerText(--remainingTimeSec);
+    }, 1000);
+}
+
+function updateTimerText(time){
+    const minutes = Math.floor(time/60);
+    const seconds = time % 60;
+    gametimer.innerText = `${minutes} : ${seconds}`;
+}
 
 field.addEventListener('click', event=>{
     const cnt = event.target;
