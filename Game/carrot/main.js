@@ -67,7 +67,7 @@ function startGameTimer(){
             result = undefined;
             return;
         }
-        if(score == 5){
+        if(result === true){
             clearInterval(timer);
             gameSuccess();
             result = undefined;
@@ -119,4 +119,10 @@ function gameFail(){
     result = false;
     popup.style.visibility = 'visible';
     popupMessage.innerHTML = `FAIL`;
+}
+
+function gameReplay(){
+    result = false;
+    popup.style.visibility = 'visible';
+    popupMessage.innerHTML = `REPLAY?`;
 }
