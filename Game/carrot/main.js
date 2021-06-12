@@ -1,9 +1,12 @@
-// 'use strict'
-import PopUp from './popup.js'
+'use strict'
+
+const restart = document.querySelector('.pop_up_refresh');
 const field = document.querySelector('.game_field');
 const fieldRect = field.getBoundingClientRect();
 const gamestartBtn = document.querySelector('.game_start');
 const gamescore = document.querySelector('.game_score');
+const popup = document.querySelector('.pop_up');
+const popupMessage = document.querySelector('.pop_up_message');
 const gametimer = document.querySelector('.game_timer');
 const GAME_DURATION_SEC = 10;
 
@@ -21,13 +24,11 @@ let replay = undefined;
 let bug_num=10;
 let carrot_num=10;
 
-const gamePopUp = new PopUp();
-
 function initGame(){
     gametimer.innerText = '0:0';
     score = 0;
     gamescore.innerText = `${score}`;
-    gamePopUp.popupStatus('hidden');
+    popup.style.visibility = 'hidden';
     field.innerHTML = ``;
 }
 
@@ -134,37 +135,31 @@ field.addEventListener('click', event=>{
     }
 });
 
-// gamePopUp.restart.addEventListener(()=>{
-//     initGame();
-//     showPlayBtn();
-//     started = false;
-// })
-
-gamePopUp.setClickListener(()=>{
+restart.addEventListener('click', ()=>{
     initGame();
     showPlayBtn();
     started = false;
-})
+});
 
 function gameSuccess(){
     result = true;
-    gamePopUp.popupStatus('visible');
-    gamePopUp.showWithText(`YOU WIN 👏🏻`);
+    popup.style.visibility = 'visible';
+    popupMessage.innerHTML = `YOU WIN 👏🏻`;
     playSound(winSound);
 }
 
 function gameFail(){
     result = false;
-    gamePopUp.popupStatus('visible');
-    gamePopUp.showWithText(`YOU LOSE 😎`);
+    popup.style.visibility = 'visible';
+    popupMessage.innerHTML = `YOU LOSE 😎`;
     playSound(alertSound);
 }
 
 function gameReplay(){
     playSound(alertSound);
     replay = true;
-    gamePopUp.popupStatus('visible');
-    gamePopUp.showWithText(`REPLAY?`);
+    popup.style.visibility = 'visible';
+    popupMessage.innerHTML = `REPLAY?`;
 }
 
 function playSound(sound){
