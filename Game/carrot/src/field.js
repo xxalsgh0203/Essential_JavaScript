@@ -5,16 +5,17 @@ export default class Field{
         this.bugnum = numberofBugs;
         this.carrotnum = numberofCarrots;
         this.field = document.querySelector('.game_field');
-        this.fieldRect = field.getBoundingClientRect();
+        this.fieldRect = this.field.getBoundingClientRect();
+        this.field.addEventListener('click', event=>{
+            this.onItemClick && this.onItemClick(event);
+        })
     }
 
-    startGame(){
-        this.field.innerHTML = ``;
-        this._addItem('bug', "./img/bug.png", this.bugnum);
-        this._addItem('carrot', "./img/carrot.png", this.carrotnum);
+    setClickListener(onItemClick){
+        this.onItemClick = onItemClick;
     }
 
-    _addItem(className, imgsrc, count){
+    addItem(className, imgsrc, count){
         for(let i=0; i<count; i++){
             var newItem = document.createElement("img");
             newItem.setAttribute("class", className);
@@ -25,6 +26,15 @@ export default class Field{
             this.field.appendChild(newItem);
         }
     }
+
+    fieldClean(){
+        this.field.innerHTML = ``;
+    }
+
+    onItemClick(event){
+        const cnt = event.target;
+    }
+
 }
 
 function getRandomNum(min, max){

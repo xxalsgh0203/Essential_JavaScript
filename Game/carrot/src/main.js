@@ -1,7 +1,7 @@
 // 'use strict'
 import PopUp from './popup.js'
-const field = document.querySelector('.game_field');
-const fieldRect = field.getBoundingClientRect();
+import Field from './field.js'
+
 const gamestartBtn = document.querySelector('.game_start');
 const gamescore = document.querySelector('.game_score');
 const gametimer = document.querySelector('.game_timer');
@@ -22,29 +22,14 @@ let bug_num=10;
 let carrot_num=10;
 
 const gamePopUp = new PopUp();
+const gameField = new Field(bug_num, carrot_num);
 
 function initGame(){
     gametimer.innerText = '0:0';
     score = 0;
     gamescore.innerText = `${score}`;
     gamePopUp.popupStatus('hidden');
-    field.innerHTML = ``;
-}
-
-function getRandomNum(min, max){
-    return Math.random() * (max-min) + min;
-}
-
-function addItem(className, imgsrc, count){
-    for(let i=0; i<count; i++){
-        var newItem = document.createElement("img");
-        newItem.setAttribute("class", className);
-        newItem.setAttribute("src", imgsrc);
-        newItem.style.position = 'absolute';
-        newItem.style.left = `${getRandomNum(0, fieldRect.width - 50)}px`;
-        newItem.style.top = `${getRandomNum(0, fieldRect.height - 50)}px`;
-        field.appendChild(newItem);
-    }
+    gameField.fieldClean();
 }
 
 gamestartBtn.addEventListener('click', ()=>{
@@ -61,10 +46,10 @@ gamestartBtn.addEventListener('click', ()=>{
 
 function startGame(){
     playSound(bgSound);
-    field.innerHTML = ``;
+    gameField.field.innerHTML = ``;
     initGame();
-    addItem('bug', "./img/bug.png", bug_num);
-    addItem('carrot', "./img/carrot.png", carrot_num);
+    gameField.addItem('bug', "./img/bug.png", bug_num);
+    gameField.addItem('carrot', "./img/carrot.png", carrot_num);
     startGameTimer();
 }
 
@@ -117,7 +102,7 @@ function updateTimerText(time){
     gametimer.innerText = `${minutes} : ${seconds}`;
 }
 
-field.addEventListener('click', event=>{
+gameField.setClickListener(event=>{
     const cnt = event.target;
     if(cnt.className == 'carrot'){
         playSound(carrotSound);
@@ -132,7 +117,7 @@ field.addEventListener('click', event=>{
         playSound(bugSound);
         gameFail();
     }
-});
+})
 
 gamePopUp.setClickListener(()=>{
     initGame();
