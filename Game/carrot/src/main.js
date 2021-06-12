@@ -134,12 +134,6 @@ field.addEventListener('click', event=>{
     }
 });
 
-// gamePopUp.restart.addEventListener(()=>{
-//     initGame();
-//     showPlayBtn();
-//     started = false;
-// })
-
 gamePopUp.setClickListener(()=>{
     initGame();
     showPlayBtn();
