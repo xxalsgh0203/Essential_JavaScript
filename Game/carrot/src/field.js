@@ -31,10 +31,6 @@ export default class Field{
         this.field.innerHTML = ``;
     }
 
-    onItemClick(event){
-        const cnt = event.target;
-    }
-
 }
 
 function getRandomNum(min, max){
