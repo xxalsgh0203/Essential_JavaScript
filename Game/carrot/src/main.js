@@ -1,17 +1,12 @@
 // 'use strict'
 import PopUp from './popup.js'
 import Field from './field.js'
+import * as sound from './sound.js'
 
 const gamestartBtn = document.querySelector('.game_start');
 const gamescore = document.querySelector('.game_score');
 const gametimer = document.querySelector('.game_timer');
 const GAME_DURATION_SEC = 10;
-
-const carrotSound = new Audio('./sound/carrot_pull.mp3');
-const alertSound = new Audio('./sound/alert.wav');
-const bgSound = new Audio('./sound/bg.mp3');
-const bugSound = new Audio('./sound/bug_pull.mp3');
-const winSound = new Audio('./sound/game_win.mp3');
 
 let score = 0;
 let started = false;
@@ -45,7 +40,7 @@ gamestartBtn.addEventListener('click', ()=>{
 });
 
 function startGame(){
-    playSound(bgSound);
+    sound.playBackground();
     gameField.field.innerHTML = ``;
     initGame();
     gameField.addItem('bug', "./img/bug.png", bug_num);
@@ -105,7 +100,7 @@ function updateTimerText(time){
 gameField.setClickListener(event=>{
     const cnt = event.target;
     if(cnt.className == 'carrot'){
-        playSound(carrotSound);
+        sound.playCarrot();
         cnt.remove();
         score++;
         if(score == carrot_num){
@@ -114,7 +109,7 @@ gameField.setClickListener(event=>{
         gamescore.innerHTML = `${score}`;
     }
     else if(cnt.className == 'bug'){
-        playSound(bugSound);
+        sound.playBug();
         gameFail();
     }
 })
@@ -129,23 +124,20 @@ function gameSuccess(){
     result = true;
     gamePopUp.popupStatus('visible');
     gamePopUp.showWithText(`YOU WIN 👏🏻`);
-    playSound(winSound);
+    sound.playWin();
 }
 
 function gameFail(){
     result = false;
     gamePopUp.popupStatus('visible');
     gamePopUp.showWithText(`YOU LOSE 😎`);
-    playSound(alertSound);
+    sound.playAlert();
 }
 
 function gameReplay(){
-    playSound(alertSound);
+    sound.playAlert();
     replay = true;
     gamePopUp.popupStatus('visible');
     gamePopUp.showWithText(`REPLAY?`);
 }
 
-function playSound(sound){
-    sound.play();
-}
